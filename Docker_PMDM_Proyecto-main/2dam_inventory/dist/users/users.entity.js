@@ -12,8 +12,8 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.User = void 0;
 const localidad_entity_1 = require("../localidad/localidad.entity");
 const provinvia_entity_1 = require("../provincia/provinvia.entity");
-const puja_entity_1 = require("../sujastas/puja.entity");
-const pujaBid_entity_1 = require("../sujastas/pujaBid.entity");
+const pujaBid_entity_1 = require("../subastas/pujaBid.entity");
+const subastas_entity_1 = require("../subastas/subastas.entity");
 const typeorm_1 = require("typeorm");
 let User = class User {
 };
@@ -30,6 +30,10 @@ __decorate([
     (0, typeorm_1.Column)(),
     __metadata("design:type", String)
 ], User.prototype, "password", void 0);
+__decorate([
+    (0, typeorm_1.Column)({ default: "no" }),
+    __metadata("design:type", String)
+], User.prototype, "avatar", void 0);
 __decorate([
     (0, typeorm_1.Column)({ default: 2 }),
     __metadata("design:type", Number)
@@ -57,7 +61,7 @@ __decorate([
     __metadata("design:type", String)
 ], User.prototype, "calle", void 0);
 __decorate([
-    (0, typeorm_1.OneToMany)(() => puja_entity_1.Puja, (puja) => puja.creator),
+    (0, typeorm_1.OneToMany)(() => subastas_entity_1.Puja, (puja) => puja.creator),
     __metadata("design:type", Array)
 ], User.prototype, "createdPujas", void 0);
 __decorate([

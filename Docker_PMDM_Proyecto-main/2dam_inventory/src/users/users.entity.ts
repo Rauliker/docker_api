@@ -1,7 +1,7 @@
 import { Localidad } from 'src/localidad/localidad.entity';
 import { Provincia } from 'src/provincia/provinvia.entity';
-import { Puja } from 'src/sujastas/puja.entity';
-import { PujaBid } from 'src/sujastas/pujaBid.entity';
+import { PujaBid } from 'src/subastas/pujaBid.entity';
+import { Puja } from 'src/subastas/subastas.entity';
 import { Column, Entity, JoinColumn, ManyToOne, OneToMany, PrimaryColumn } from 'typeorm';
 
 @Entity('users')
@@ -11,18 +11,20 @@ export class User {
 
   @Column()
   username: string;
-
+  
   @Column()
   password: string;
+
+  @Column({ default: "no" })
+  avatar: string;
 
   @Column({ default: 2 })
   role: number;
 
-
   @Column({ default: false })
   banned: boolean;
 
-  @Column({type: 'decimal', precision: 10, scale: 2,default: 0 }) // Almacena hasta 10 dígitos en total, 2 de ellos decimales
+  @Column({type: 'decimal', precision: 10, scale: 2,default: 0 })
   balance?: number;
 
   @ManyToOne(() => Provincia, (provincia) => provincia.users)

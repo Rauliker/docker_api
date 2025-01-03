@@ -10,7 +10,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Image = void 0;
-const puja_entity_1 = require("../sujastas/puja.entity");
+const subastas_entity_1 = require("../subastas/subastas.entity");
 const typeorm_1 = require("typeorm");
 let Image = class Image {
 };
@@ -24,8 +24,8 @@ __decorate([
     __metadata("design:type", String)
 ], Image.prototype, "url", void 0);
 __decorate([
-    (0, typeorm_1.ManyToOne)(() => puja_entity_1.Puja, (puja) => puja.imagenes, { onDelete: 'CASCADE' }),
-    __metadata("design:type", puja_entity_1.Puja)
+    (0, typeorm_1.ManyToOne)(() => subastas_entity_1.Puja, (puja) => puja.imagenes, { onDelete: 'CASCADE' }),
+    __metadata("design:type", subastas_entity_1.Puja)
 ], Image.prototype, "puja", void 0);
 exports.Image = Image = __decorate([
     (0, typeorm_1.Entity)('imagenes')

@@ -42,6 +42,19 @@ let FirebaseService = class FirebaseService {
             throw new Error(error.message);
         }
     }
+    async updateFirebaseUser(email, password) {
+        try {
+            const userRecord = await admin.auth().getUserByEmail(email);
+            const userUpdate = await admin.auth().updateUser(userRecord.uid, {
+                email: email,
+                password: password,
+            });
+            return userUpdate;
+        }
+        catch (error) {
+            throw new Error(error.message);
+        }
+    }
     async deleteFirebaseUser(email) {
         try {
             const userRecord = await admin.auth().getUserByEmail(email);

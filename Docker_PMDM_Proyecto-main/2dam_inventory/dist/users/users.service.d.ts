@@ -10,8 +10,10 @@ export declare class UserService {
     private readonly provinciaRepository;
     private readonly firebaseService;
     constructor(userRepository: Repository<User>, localidadRepository: Repository<Localidad>, provinciaRepository: Repository<Provincia>, firebaseService: FirebaseService);
-    createUser(createUserDto: CreateUserDto): Promise<User>;
+    createUser(createUserDto: CreateUserDto, imagenesUrls: string[]): Promise<User>;
     updateUser(email: string, updateUserDto: UpdateUserDto): Promise<User>;
+    updatePass(email: string, updateUserDto: UpdateUserDto): Promise<User>;
+    findAllExcpt(id: string): Promise<User[]>;
     findAll(): Promise<User[]>;
     findOne(email: string): Promise<User>;
     login(email: string, password: string): Promise<User>;

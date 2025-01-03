@@ -11,9 +11,9 @@ import { Localidad } from './localidad/localidad.entity';
 import { LocalidadModule } from './localidad/localidad.module';
 import { ProvinciaModule } from './provincia/privincia.module';
 import { Provincia } from './provincia/provinvia.entity';
-import { Puja } from './sujastas/puja.entity';
-import { PujaModule } from './sujastas/puja.module';
-import { PujaBid } from './sujastas/pujaBid.entity';
+import { PujaBid } from './subastas/pujaBid.entity';
+import { Puja } from './subastas/subastas.entity';
+import { PujaModule } from './subastas/subastas.module';
 import { User } from './users/users.entity';
 import { UserModule } from './users/users.module';
 import { UtilsModule } from './utils/utils.module';
@@ -21,7 +21,7 @@ import { UtilsModule } from './utils/utils.module';
 @Module({
   imports: [
     MulterModule.register({
-      dest: './images', // Carpeta de destino
+      dest: './images',
       limits: {
         fileSize: 5 * 1024 * 1024, // Límite de tamaño de archivo (5MB)
       },
@@ -47,7 +47,6 @@ import { UtilsModule } from './utils/utils.module';
     TypeOrmModule.forRootAsync({
       imports: [ConfigModule],
       useFactory: (configService: ConfigService) => ({
-        type: 'mysql',
         // host: 'localhost',
         // port: 3306,
         // username: 'root',

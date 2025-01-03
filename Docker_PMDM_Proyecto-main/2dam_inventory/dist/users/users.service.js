@@ -27,7 +27,7 @@ let UserService = class UserService {
         this.provinciaRepository = provinciaRepository;
         this.firebaseService = firebaseService;
     }
-    async createUser(createUserDto) {
+    async createUser(createUserDto, imagenesUrls) {
         const provincia = await this.provinciaRepository.findOne({
             where: { id_provincia: createUserDto.provinciaId },
         });
@@ -52,16 +52,18 @@ let UserService = class UserService {
         if (!firebaseUser) {
             throw new common_1.BadRequestException('Error al crear el usuario en Firebase');
         }
+        const avatar = imagenesUrls.length > 0 ? imagenesUrls[imagenesUrls.length - 1] : null;
         const user = this.userRepository.create({
             email: createUserDto.email,
             username: createUserDto.username,
             password: createUserDto.password,
+            avatar: avatar,
             role: createUserDto.role,
             banned: createUserDto.banned,
             balance: createUserDto.balance,
             calle: createUserDto.calle,
             provincia,
-            localidad
+            localidad,
         });
         return this.userRepository.save(user);
     }
@@ -70,8 +72,22 @@ let UserService = class UserService {
         if (!user) {
             throw new common_1.NotFoundException('Usuario no encontrado.');
         }
+        if (updateUserDto.password != null) {
+            const firebaseUser = await this.firebaseService.updateFirebaseUser(updateUserDto.email, updateUserDto.password);
+        }
         Object.assign(user, updateUserDto);
         return this.userRepository.save(user);
+    }
+    async updatePass(email, updateUserDto) {
+        const user = await this.userRepository.findOne({ where: { email } });
+        if (!user) {
+            throw new common_1.NotFoundException('Usuario no encontrado.');
+        }
+        Object.assign(user, updateUserDto);
+        return this.userRepository.save(user);
+    }
+    async findAllExcpt(id) {
+        return this.userRepository.find({ where: { email: (0, typeorm_2.Not)(id) }, relations: ['provincia', 'localidad', 'createdPujas', 'pujaBids'] });
     }
     async findAll() {
         return this.userRepository.find({ relations: ['provincia', 'localidad', 'createdPujas', 'pujaBids'] });

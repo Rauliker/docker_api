@@ -9,14 +9,14 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.ImagenModule = void 0;
 const common_1 = require("@nestjs/common");
 const typeorm_1 = require("@nestjs/typeorm");
-const puja_entity_1 = require("../sujastas/puja.entity");
+const subastas_entity_1 = require("../subastas/subastas.entity");
 const imagen_entity_1 = require("./imagen.entity");
 let ImagenModule = class ImagenModule {
 };
 exports.ImagenModule = ImagenModule;
 exports.ImagenModule = ImagenModule = __decorate([
     (0, common_1.Module)({
-        imports: [typeorm_1.TypeOrmModule.forFeature([imagen_entity_1.Image, puja_entity_1.Puja])],
+        imports: [typeorm_1.TypeOrmModule.forFeature([imagen_entity_1.Image, subastas_entity_1.Puja])],
         controllers: [],
         providers: [],
         exports: [typeorm_1.TypeOrmModule],

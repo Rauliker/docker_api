@@ -1,11 +1,12 @@
 import { Localidad } from 'src/localidad/localidad.entity';
 import { Provincia } from 'src/provincia/provinvia.entity';
-import { Puja } from 'src/sujastas/puja.entity';
-import { PujaBid } from 'src/sujastas/pujaBid.entity';
+import { PujaBid } from 'src/subastas/pujaBid.entity';
+import { Puja } from 'src/subastas/subastas.entity';
 export declare class User {
     email: string;
     username: string;
     password: string;
+    avatar: string;
     role: number;
     banned: boolean;
     balance?: number;

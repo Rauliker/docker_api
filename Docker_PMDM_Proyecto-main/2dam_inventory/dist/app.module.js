@@ -23,9 +23,9 @@ const localidad_entity_1 = require("./localidad/localidad.entity");
 const localidad_module_1 = require("./localidad/localidad.module");
 const privincia_module_1 = require("./provincia/privincia.module");
 const provinvia_entity_1 = require("./provincia/provinvia.entity");
-const puja_entity_1 = require("./sujastas/puja.entity");
-const puja_module_1 = require("./sujastas/puja.module");
-const pujaBid_entity_1 = require("./sujastas/pujaBid.entity");
+const pujaBid_entity_1 = require("./subastas/pujaBid.entity");
+const subastas_entity_1 = require("./subastas/subastas.entity");
+const subastas_module_1 = require("./subastas/subastas.module");
 const users_entity_1 = require("./users/users.entity");
 const users_module_1 = require("./users/users.module");
 const utils_module_1 = require("./utils/utils.module");
@@ -58,7 +58,7 @@ exports.AppModule = AppModule = __decorate([
             config_1.ConfigModule.forRoot(),
             privincia_module_1.ProvinciaModule,
             imagen_module_1.ImagenModule,
-            puja_module_1.PujaModule,
+            subastas_module_1.PujaModule,
             users_module_1.UserModule,
             localidad_module_1.LocalidadModule,
             utils_module_1.UtilsModule,
@@ -66,13 +66,13 @@ exports.AppModule = AppModule = __decorate([
                 imports: [config_1.ConfigModule],
                 useFactory: (configService) => ({
                     type: 'mysql',
-                    host: 'database',
+                    host: 'localhost',
                     port: 3306,
-                    username: 'inventory',
-                    password: 'inventory_user',
+                    username: 'root',
+                    password: '',
                     database: 'proyecto',
                     entities: [
-                        puja_entity_1.Puja,
+                        subastas_entity_1.Puja,
                         imagen_entity_1.Image,
                         users_entity_1.User,
                         localidad_entity_1.Localidad,
