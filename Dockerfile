@@ -1,20 +1,29 @@
-FROM node:18
+FROM node:20-alpine
 
-# Establece el directorio de trabajo
-WORKDIR /app/api_Server
+LABEL maintainer="Rauliker <rauliker04@gmail.com>"
 
-# Copia los archivos de dependencias primero
-COPY api_Server/package*.json ./  
-# Asegúrate de copiar los dos archivos: package.json y package-lock.json (si existe)
+# Instalar PM2 para producción
+RUN npm install pm2 -g
 
-# Instala las dependencias
-RUN npm install
+# Crear directorio de trabajo
+WORKDIR /api
 
-# Copia el resto del código
-COPY api_Server/ .
+# Copiar archivos necesarios
+COPY package*.json ./
+COPY tsconfig*.json ./
+COPY .env ./
 
-# Exponer el puerto 3000
+# Instalar dependencias
+RUN npm install -g @nestjs/cli && npm install
+
+# Copiar código fuente
+COPY ./src ./src
+
+# Construir el proyecto
+RUN npm run build
+
+# Exponer puertos
 EXPOSE 3000
 
-# Ejecutar la API
-CMD ["npm", "run", "start:dev"]
+# Iniciar la aplicación con PM2
+CMD ["pm2-runtime", "start", "pm2.json"]
