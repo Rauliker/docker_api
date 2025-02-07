@@ -1,46 +1,28 @@
 services:
   web_server:
-    build:
-      context: ./api_Server
+    build: .
     ports:
-      - "${WEB_SERVER_PORT}:3000"
+      - ${WEB_SERVER_PORT}:3000
     depends_on:
       - database
-    container_name: wbserver-raul
-    working_dir: /api
-    environment:
-      - NODE_ENV=production
-      - MYSQL_DATABASE=${MYSQL_DATABASE}
-      - MYSQL_USER=${MYSQL_USER}
-      - MYSQL_PASSWORD=${MYSQL_PASSWORD}
-      - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
+    container_name: raul-web_server
+    working_dir: /web
+    command: pm2-runtime start pm2.json
     volumes:
-      - ./api_Server:/api
-
-
+      - ./api_Server:/web
+    environment:
+      - TZ=Europe/Berlin
   database:
     image: yobasystems/alpine-mariadb:10.11.8
-    container_name: mysql-raul
+    container_name: raul-db
     ports:
-      - "3306:3306"
+      - "2222:3306"
+    #restart: always
     environment:
       - MYSQL_DATABASE=${MYSQL_DATABASE}
       - MYSQL_USER=${MYSQL_USER}
       - MYSQL_PASSWORD=${MYSQL_PASSWORD}
       - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
+      - TZ=Europe/Berlin
     volumes:
-      - ./data/mysql:/var/lib/mysql
-  phpmyadmin:
-    image: phpmyadmin/phpmyadmin
-    container_name: phpmyadmin_api
-    restart: always
-    env_file:
-      - .env
-    environment:
-      PMA_HOST: mysql
-      PMA_USER: ${MYSQL_USER}
-      PMA_PASSWORD: ${MYSQL_PASSWORD}
-    ports:
-      - "8081:80"
-    depends_on:
-      - database
+     - ./data/db/mysql:/var/lib/mysql

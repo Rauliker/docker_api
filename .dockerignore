@@ -1,7 +1,0 @@
-
-.git
-.DS_Store
-logs
-api_Server/.git
-# api_Server/images/*.png
-# api_Server/images/avatar/*.png

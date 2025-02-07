@@ -1,29 +1,11 @@
 FROM node:20-alpine
+LABEL maintainer="Keymetrics <contact@keymetrics.io>"
 
-LABEL maintainer="Rauliker <rauliker04@gmail.com>"
-
-# Instalar PM2 para producción
+# Install pm2
 RUN npm install pm2 -g
 
-# Crear directorio de trabajo
-WORKDIR /api
+# Expose ports needed to use Keymetrics.io
+EXPOSE 80 443 43554
 
-# Copiar archivos necesarios
-COPY package*.json ./
-COPY tsconfig*.json ./
-COPY .env ./
-
-# Instalar dependencias
-RUN npm install -g @nestjs/cli && npm install
-
-# Copiar código fuente
-COPY ./src ./src
-
-# Construir el proyecto
-RUN npm run build
-
-# Exponer puertos
-EXPOSE 3000
-
-# Iniciar la aplicación con PM2
+# Start pm2.json process file
 CMD ["pm2-runtime", "start", "pm2.json"]
